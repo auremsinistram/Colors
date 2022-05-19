@@ -6,6 +6,36 @@ import UIKit
 
 public extension RGB {
     
+    // MARK: - Public static func
+    
+    static func + (lhs: RGB, rhs: RGB) -> RGB {
+        let dst = lhs.unitSegments
+        let src = rhs.unitSegments
+        let const = dst.a * (1.0 - src.a)
+        let a = src.a + const
+        if a == 0.0 {
+            return RGB(r: 0, g: 0, b: 0, a: 0.0)
+        }
+        return RGB(
+            r: Int(((src.r * src.a + dst.r * const) / a) * 255.0),
+            g: Int(((src.g * src.a + dst.g * const) / a) * 255.0),
+            b: Int(((src.b * src.a + dst.b * const) / a) * 255.0),
+            a: a
+        )
+    }
+    
+    static func * (lhs: RGB, rhs: RGB) -> RGB {
+        let dst = lhs.unitSegments
+        let src = rhs.unitSegments
+        let const = 1.0 - src.a
+        return RGB(
+            r: Int((src.r + dst.r * const) * 255.0),
+            g: Int((src.g + dst.g * const) * 255.0),
+            b: Int((src.b + dst.b * const) * 255.0),
+            a: src.a + dst.a * const
+        )
+    }
+    
     // MARK: - Public var
     
     var color: UIColor {
@@ -64,5 +94,14 @@ public extension RGB {
             h += 360.0
         }
         return HSV(h: h, s: s, v: cMax, a: a)
+    }
+    
+    var unitSegments: (r: Float, g: Float, b: Float, a: Float) {
+        return (
+            Float(r) / 255.0,
+            Float(g) / 255.0,
+            Float(b) / 255.0,
+            a
+        )
     }
 }
