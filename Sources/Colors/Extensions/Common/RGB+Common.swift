@@ -39,18 +39,20 @@ public extension RGB {
     // MARK: - Public var
     
     var color: UIColor {
+        let rgba = unitSegments
         return UIColor(
-            red: CGFloat(r) / 255.0,
-            green: CGFloat(g) / 255.0,
-            blue: CGFloat(b) / 255.0,
-            alpha: CGFloat(a)
+            red: CGFloat(rgba.r),
+            green: CGFloat(rgba.g),
+            blue: CGFloat(rgba.b),
+            alpha: CGFloat(rgba.a)
         )
     }
     
     var hsl: HSL {
-        let r = Float(self.r) / 255.0
-        let g = Float(self.g) / 255.0
-        let b = Float(self.b) / 255.0
+        let rgba = unitSegments
+        let r = rgba.r
+        let g = rgba.g
+        let b = rgba.b
         let cMax = max(max(r, g), b)
         let cMin = min(min(r, g), b)
         let delta = cMax - cMin
@@ -73,9 +75,10 @@ public extension RGB {
     }
     
     var hsv: HSV {
-        let r = Float(self.r) / 255.0
-        let g = Float(self.g) / 255.0
-        let b = Float(self.b) / 255.0
+        let rgba = unitSegments
+        let r = rgba.r
+        let g = rgba.g
+        let b = rgba.b
         let cMax = max(max(r, g), b)
         let cMin = min(min(r, g), b)
         let delta = cMax - cMin
