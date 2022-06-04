@@ -2,7 +2,13 @@
 // RGB+Common.swift
 //
 
+#if os(iOS)
 import UIKit
+#endif
+
+#if os(macOS)
+import Cocoa
+#endif
 
 public extension RGB {
     
@@ -38,6 +44,8 @@ public extension RGB {
     
     // MARK: - Public var
     
+    #if os(iOS)
+    
     var color: UIColor {
         let rgba = unitSegments
         return UIColor(
@@ -47,6 +55,22 @@ public extension RGB {
             alpha: CGFloat(rgba.a)
         )
     }
+    
+    #endif
+    
+    #if os(macOS)
+    
+    var color: NSColor {
+        let rgba = unitSegments
+        return NSColor(
+            red: CGFloat(rgba.r),
+            green: CGFloat(rgba.g),
+            blue: CGFloat(rgba.b),
+            alpha: CGFloat(rgba.a)
+        )
+    }
+    
+    #endif
     
     var hsl: HSL {
         let rgba = unitSegments

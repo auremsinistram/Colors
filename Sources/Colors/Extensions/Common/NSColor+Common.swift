@@ -1,12 +1,12 @@
 //
-// UIColor+Common.swift
+// NSColor+Common.swift
 //
 
-#if os(iOS)
+#if os(macOS)
 
-import UIKit
+import Cocoa
 
-public extension UIColor {
+public extension NSColor {
     
     // MARK: - Public var
     
