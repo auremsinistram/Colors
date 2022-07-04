@@ -15,7 +15,7 @@ public extension NSColor {
         var g: CGFloat = 0.0
         var b: CGFloat = 0.0
         var a: CGFloat = 0.0
-        getRed(&r, green: &g, blue: &b, alpha: &a)
+        usingColorSpace(.sRGB)?.getRed(&r, green: &g, blue: &b, alpha: &a)
         return RGB(
             r: Int(r * 255.0),
             g: Int(g * 255.0),
