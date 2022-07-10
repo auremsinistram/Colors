@@ -5,7 +5,7 @@
 import Foundation
 import PropertyWrappers
 
-public struct RGB: Equatable, Codable, CustomStringConvertible {
+public struct RGB: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Private enum
     
@@ -36,12 +36,6 @@ public struct RGB: Equatable, Codable, CustomStringConvertible {
     
     public var description: String {
         return "(\(r), \(g), \(b), \(100.0 * a)%)"
-    }
-    
-    // MARK: - Equatable
-    
-    public static func == (lhs: RGB, rhs: RGB) -> Bool {
-        return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b
     }
     
     // MARK: - Public init
@@ -75,5 +69,18 @@ public struct RGB: Equatable, Codable, CustomStringConvertible {
         var container = encoder.container(keyedBy: Key.self)
         try container.encode(hex, forKey: .hex)
         try container.encode(a, forKey: .a)
+    }
+    
+    // MARK: - Hashable
+    
+    public static func == (lhs: RGB, rhs: RGB) -> Bool {
+        return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b && lhs.a == rhs.a
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(r)
+        hasher.combine(g)
+        hasher.combine(b)
+        hasher.combine(a)
     }
 }
